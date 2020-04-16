@@ -1,14 +1,18 @@
 <template>
     <el-container class="content">
-        <el-aside width="200px">
+        <el-aside width="auto">
             <the-nav-menu></the-nav-menu>
         </el-aside>
-        <el-container>
-            <el-header>
+        <el-container :class="{'content-collapse': isCollapse, 'content-detail': true}">
+            <el-header height="auto">
                 <the-page-header></the-page-header>
             </el-header>
-            <el-main>Main</el-main>
-            <el-footer>Footer</el-footer>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
+            <el-footer>
+                <the-footer></the-footer>
+            </el-footer>
         </el-container>
     </el-container>
 </template>
@@ -16,49 +20,30 @@
 <script>
     import TheNavMenu from '../components/common/TheNavMenu';
     import ThePageHeader from '../components/common/ThePageHeader';
+    import TheFooter from '../components/common/TheFooter';
+    import { mapState } from 'vuex';
 
     export default {
         name: 'BasicLayout',
-        components: { ThePageHeader, TheNavMenu },
+        components: { TheFooter, ThePageHeader, TheNavMenu },
+        computed: {
+            ...mapState({
+                isCollapse: state => state.theNavMenu.isCollapse,
+            }),
+        },
     };
 </script>
 
 <style scoped>
-    /*.el-header, .el-footer {*/
-    /*    background-color: #B3C0D1;*/
-    /*    color: #333;*/
-    /*    text-align: center;*/
-    /*    line-height: 60px;*/
-    /*}*/
-
-    /*.el-aside {*/
-    /*    background-color: #D3DCE6;*/
-    /*    color: #333;*/
-    /*    text-align: center;*/
-    /*    line-height: 200px;*/
-    /*}*/
-
-    /*.el-main {*/
-    /*    background-color: #E9EEF3;*/
-    /*    color: #333;*/
-    /*    text-align: center;*/
-    /*    line-height: 160px;*/
-    /*}*/
-
-    /*body > .el-container {*/
-    /*    margin-bottom: 40px;*/
-    /*}*/
-
-    /*.el-container:nth-child(5) .el-aside,*/
-    /*.el-container:nth-child(6) .el-aside {*/
-    /*    line-height: 260px;*/
-    /*}*/
-
-    /*.el-container:nth-child(7) .el-aside {*/
-    /*    line-height: 320px;*/
-    /*}*/
-
     .content {
         min-height: 100vh;
+    }
+
+    .content-collapse {
+        left: 65px;
+    }
+
+    .content-detail {
+        padding-top: 12px;
     }
 </style>

@@ -2,11 +2,14 @@ import Vue from 'vue';
 import App from './App.vue';
 import './plugins/element.js';
 import router from './router';
-import './components/common/TheBreadcrumbs';
+import store from './store';
+// Remove when building
+import './mock';
 
 Vue.config.productionTip = false;
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app');
